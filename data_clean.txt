@@ -1,0 +1,5 @@
+KEYS REMOVED FROM CARDS data
+
+all none english cards removed from data
+
+{'object', 'finishes', 'prints_search_uri', 'reprint', 'scryfall_set_uri', 'oracle_id', 'story_spotlight', 'scryfall_uri', 'promo', 'illustration_id', 'penny_rank', 'set_id', 'tcgplayer_id', 'purchase_uris', 'nonfoil', 'border_color', 'mtgo_foil_id', 'mtgo_id', 'artist', 'textless', 'games', 'artist_ids', 'rulings_uri', 'prices', 'released_at', 'frame', 'related_uris', 'foil', 'card_back_id', 'cardmarket_id', 'full_art', 'booster', 'multiverse_ids', 'oversized', 'set_search_uri', 'set_uri', 'set_type', 'edhrec_rank', 'variation', 'lang','preview', 'watermark', 'variation_of', 'arena_id', 'color_indicator', 'loyalty', 'flavor_name', 'produced_mana', 'life_modifier', 'content_warning', 'tcgplayer_etched_id', 'hand_modifier', 'card_faces', 'promo_types', 'attraction_lights', 'security_stamp', 'frame_effects', 'all_parts', 'image_status', 'highres_image', 'released_at'}

@@ -2,7 +2,7 @@ from django.db import models
 
 class Card(models.Model):
 	name = models.CharField(max_length=50)
-	power = models.IntegerField(null=True)
+	power = models.ForeignKey(Power, related_name="cards", on_delete=models.CASCADE)
 	toughness = models.IntegerField(null=True)
 	cmc = models.IntegerField(null=True)
 	rarity = models.ForeignKey(Rarity, related_name="cards", on_delete=models.CASCADE)
@@ -21,7 +21,10 @@ class Card(models.Model):
 	layout = models.ForeignKey(Layout, related_name="cards", on_delete=models.CASCADE)
 	legality = models.ForeignKey(Legality, related_name="cards", on_delete=models.CASCADE)
 	type_line = models.CharField()
+	mana_cost = models.ForeignKey(ManaCost, related_name="cards", on_delet=models.CASCADE)
 
+class Power(models.Model):
+	power = models.IntegerField(null=True)
 class Color(models.Model):
 	color = models.CharField(max_length=3)
 	cards = models.ManyToManyField(Card, related_name="colors")
@@ -57,6 +60,9 @@ class Legality(models.Model):
 	legal = models.BooleanField()
 	game_type = models.ForeignKey(GameType, related_name="legalities",on_delete=models.CASCADE)
 
+class ManaCost(models.Model):
+	mana_cost = models.CharField(max_lenth=20)
+
 # id DONE
 # name DONE
 # layout DONE
@@ -67,7 +73,7 @@ class Legality(models.Model):
 	# png
 	# art_crop
 	# border_crop
-# mana_cost HOW DO I IMPLEMENT THIS?
+# mana_cost DONE
 # cmc DONE
 # type_line
 # oracle_text DONE

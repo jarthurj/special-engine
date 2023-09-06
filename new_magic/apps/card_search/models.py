@@ -3,8 +3,8 @@ from django.db import models
 class Card(models.Model):
 	name = models.CharField(max_length=50)
 	power = models.ForeignKey(Power, related_name="cards", on_delete=models.CASCADE)
-	toughness = models.IntegerField(null=True)
-	cmc = models.IntegerField(null=True)
+	toughness = models.ForeignKey(Toughness, related_name="cards", on_delete=models.CASCADE)
+	cmc = models.ForeignKey(Cmc, related_name="cards", on_delete=models.CASCADE)
 	rarity = models.ForeignKey(Rarity, related_name="cards", on_delete=models.CASCADE)
 	scryfall_id = models.CharField(max_length=100)
 	digital = models.ForeignKey(Digital, related_name="cards", on_delete=models.CASCADE)
@@ -21,10 +21,17 @@ class Card(models.Model):
 	layout = models.ForeignKey(Layout, related_name="cards", on_delete=models.CASCADE)
 	legality = models.ForeignKey(Legality, related_name="cards", on_delete=models.CASCADE)
 	type_line = models.CharField()
-	mana_cost = models.ForeignKey(ManaCost, related_name="cards", on_delet=models.CASCADE)
+	mana_cost = models.ForeignKey(ManaCost, related_name="cards", on_delete=models.CASCADE)
+
+class Cmc(models.Model):
+	cmc = models.DecimalField()
 
 class Power(models.Model):
-	power = models.IntegerField(null=True)
+	power = models.CharField(max_lenth=30)
+
+class Tougness(models.Model):
+	power = models.CharField(max_lenth=30)
+
 class Color(models.Model):
 	color = models.CharField(max_length=3)
 	cards = models.ManyToManyField(Card, related_name="colors")

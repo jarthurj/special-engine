@@ -1,44 +1,14 @@
 from django.db import models
 
-class Card(models.Model):
-	name = models.CharField(max_length=50)
-	power = models.ForeignKey(Power, related_name="cards", on_delete=models.CASCADE)
-	toughness = models.ForeignKey(Toughness, related_name="cards", on_delete=models.CASCADE)
-	cmc = models.ForeignKey(Cmc, related_name="cards", on_delete=models.CASCADE)
-	rarity = models.ForeignKey(Rarity, related_name="cards", on_delete=models.CASCADE)
-	scryfall_id = models.CharField(max_length=100)
-	digital = models.ForeignKey(Digital, related_name="cards", on_delete=models.CASCADE)
-	created_at = models.DateTimeField(auto_now_add=True)
-	updated_at = models.DateTimeField(auto_now=True)
-	reserved = models.ForeignKey(Reserved, related_name="cards", on_delete=models.CASCADE)
-	flavor_text = models.CharField(max_length=255)
-	collector_number = models.CharField(max_length=10)
-	card_set = models.ForeignKey(CardSet, related_name="cards", on_delete=models.CASCADE)
-	oracle_text = models.CharField(max_length=200)
-	image_small = models.URLField()
-	image_normal = models.URLField()
-	image_large = models.URLField()
-	layout = models.ForeignKey(Layout, related_name="cards", on_delete=models.CASCADE)
-	legality = models.ForeignKey(Legality, related_name="cards", on_delete=models.CASCADE)
-	type_line = models.CharField()
-	mana_cost = models.ForeignKey(ManaCost, related_name="cards", on_delete=models.CASCADE)
 
 class Cmc(models.Model):
-	cmc = models.DecimalField()
+	cmc = models.DecimalField(decimal_places=1, max_digits=9, null=True)
 
 class Power(models.Model):
-	power = models.CharField(max_lenth=30)
+	power = models.CharField(max_length=30)
 
-class Tougness(models.Model):
-	power = models.CharField(max_lenth=30)
-
-class Color(models.Model):
-	color = models.CharField(max_length=3)
-	cards = models.ManyToManyField(Card, related_name="colors")
-
-class ColorIdentity(models.Model):
-	color_identity = models.CharField(max_length=3)
-	cards = models.ManyToManyField(Card, related_name="color_identities")
+class Toughness(models.Model):
+	toughness = models.CharField(max_length=30)
 
 class Rarity(models.Model):
 	rarity = models.CharField(max_length=10)
@@ -56,19 +26,52 @@ class CardSet(models.Model):
 	name = models.CharField(max_length=50)
 	set_code = models.CharField(max_length=20)
 
-class Keyword(models.Model):
-	name = models.CharField(max_length=20)
-	cards = models.ManyToManyField(Card, related_name="keywords")
-
 class GameType(models.Model):
 	game_type = models.CharField(max_length=20)
 
 class Legality(models.Model):
-	legal = models.BooleanField()
+	legality = models.CharField(max_length=20)
 	game_type = models.ForeignKey(GameType, related_name="legalities",on_delete=models.CASCADE)
 
 class ManaCost(models.Model):
-	mana_cost = models.CharField(max_lenth=20)
+	mana_cost = models.CharField(max_length=20)
+
+class Card(models.Model):
+	name = models.CharField(max_length=50)
+	power = models.ForeignKey(Power, related_name="cards", on_delete=models.CASCADE)
+	toughness = models.ForeignKey(Toughness, related_name="cards", on_delete=models.CASCADE)
+	cmc = models.ForeignKey(Cmc, related_name="cards", on_delete=models.CASCADE)
+	rarity = models.ForeignKey(Rarity, related_name="cards", on_delete=models.CASCADE)
+	scryfall_id = models.CharField(max_length=100)
+	digital = models.ForeignKey(Digital, related_name="cards", on_delete=models.CASCADE)
+	created_at = models.DateTimeField(auto_now_add=True)
+	updated_at = models.DateTimeField(auto_now=True)
+	reserved = models.ForeignKey(Reserved, related_name="cards", on_delete=models.CASCADE)
+	flavor_text = models.CharField(max_length=255)
+	collector_number = models.CharField(max_length=10)
+	card_set = models.ForeignKey(CardSet, related_name="cards", on_delete=models.CASCADE)
+	oracle_text = models.CharField(max_length=200)
+	image_small = models.URLField(null=True)
+	image_normal = models.URLField(null=True)
+	image_large = models.URLField(null=True)
+	layout = models.ForeignKey(Layout, related_name="cards", on_delete=models.CASCADE)
+	legality = models.ManyToManyField(Legality, related_name="cards")
+	type_line = models.CharField(max_length=100)
+	mana_cost = models.ForeignKey(ManaCost, related_name="cards", on_delete=models.CASCADE)
+
+class Color(models.Model):
+	color = models.CharField(max_length=3)
+	cards = models.ManyToManyField(Card, related_name="colors")
+
+class ColorIdentity(models.Model):
+	color_identity = models.CharField(max_length=3)
+	cards = models.ManyToManyField(Card, related_name="color_identities")
+
+class Keyword(models.Model):
+	keyword = models.CharField(max_length=20)
+	cards = models.ManyToManyField(Card, related_name="keywords")
+
+
 
 # id DONE
 # name DONE

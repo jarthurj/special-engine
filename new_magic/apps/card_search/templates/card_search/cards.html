@@ -3,13 +3,12 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title></title>
+	<title>
+	</title>
 </head>
 <body>
-	<form action="/card_search/" method="get">
-		{% csrf_token %}
-		{{search_form}}
-		<button type="submit">Submit</button>
-	</form>
+	{% for c in cards %}
+		<img href="{{cards.img_small}}"/>
+	{% endfor %}
 </body>
 </html>

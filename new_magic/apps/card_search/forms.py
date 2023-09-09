@@ -15,10 +15,12 @@ RARITY = (
 	('uncommon','uncommon'),
 	('common','common'))
 MPT = (
+	("none","-"),
 	('mana', 'Converted Mana Cost'),
 	('power', 'Power'),
 	('toughness', 'Toughness'),)
 MPTCONS = (
+	("none","-"),
 	("equal","equal to"),
 	("gt","greater than to"),
 	("lt","less than to"),
@@ -26,10 +28,12 @@ MPTCONS = (
 	("gte","greater than or equal to"),
 	("nte","not equal to"),)
 LRB = (
+	("none","-"),
 	("banned","Banned"),
 	("restricted","Restricted"),
 	("legal","Legal"),)
 GAME_TYPES=(
+	("none","-"),
 	('standard',"Standard"),
 	('historic',"Historic"),
 	('pioneer',"Pioneer"),
@@ -57,29 +61,29 @@ class CardSearch(forms.Form):
 	card_name = forms.CharField(max_length=50)
 	colors = forms.MultipleChoiceField(
 				widget=forms.CheckboxSelectMultiple,
-				choices=COLOR_CHOICES)
+				choices=COLOR_CHOICES,required=False)
 	colors_identity = forms.MultipleChoiceField(
 				widget=forms.CheckboxSelectMultiple,
-				choices=COLOR_CHOICES)
+				choices=COLOR_CHOICES,required=False)
 	exactly_or_not = forms.MultipleChoiceField(
 				widget=forms.SelectMultiple,
-				choices=EXACT)
+				choices=EXACT,required=False)
 	rarity = forms.MultipleChoiceField(
 				widget=forms.CheckboxSelectMultiple,
-				choices=RARITY)
+				choices=RARITY,required=False)
 	#mpt = mana power toughness
 	mpt = forms.MultipleChoiceField(
 				widget=forms.Select,
-				choices=MPT)
+				choices=MPT,required=False)
 	mpt_condition = forms.MultipleChoiceField(
 				widget=forms.Select,
-				choices=MPTCONS)
-	mpt_parameter = forms.CharField(max_length=10)
+				choices=MPTCONS,required=False)
+	mpt_parameter = forms.CharField(max_length=10, required=False)
 	lrb = forms.MultipleChoiceField(
 				widget=forms.Select,
-				choices=LRB)
+				choices=LRB,required=False)
 	game_types = forms.MultipleChoiceField(
 				widget=forms.Select,
-				choices=GAME_TYPES)
-	type_line = forms.CharField(max_length=50)
-	any_text = forms.CharField(max_length=50)
+				choices=GAME_TYPES,required=False)
+	type_line = forms.CharField(max_length=50,required=False)
+	any_text = forms.CharField(max_length=50,required=False)

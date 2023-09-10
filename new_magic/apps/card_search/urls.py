@@ -20,5 +20,4 @@ from . import views
 urlpatterns = [
     path('', views.index, name="index"),
     path('card_search/', views.search, name="search"),
-    path('results/', views.results, name="results"),
 ]

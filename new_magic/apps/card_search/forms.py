@@ -1,11 +1,11 @@
 from django import forms
 
 COLOR_CHOICES = (
-	('blue','Blue'),
-	('black','Black'),
-	('white','White'),
-	('red','Red'),
-	('green','Green'))
+	('U','Blue'),
+	('B','Black'),
+	('W','White'),
+	('R','Red'),
+	('G','Green'))
 EXACT = (
 	('exact','Exactly these colors'),
 	('contains','Contains these colors'))
@@ -58,16 +58,16 @@ GAME_TYPES=(
 
 
 class CardSearch(forms.Form):
-	card_name = forms.CharField(max_length=50)
+	card_name = forms.CharField(max_length=50, required=False)
 	colors = forms.MultipleChoiceField(
-				widget=forms.CheckboxSelectMultiple,
-				choices=COLOR_CHOICES,required=False)
-	colors_identity = forms.MultipleChoiceField(
 				widget=forms.CheckboxSelectMultiple,
 				choices=COLOR_CHOICES,required=False)
 	exactly_or_not = forms.MultipleChoiceField(
 				widget=forms.SelectMultiple,
 				choices=EXACT,required=False)
+	colors_identity = forms.MultipleChoiceField(
+				widget=forms.CheckboxSelectMultiple,
+				choices=COLOR_CHOICES,required=False)
 	rarity = forms.MultipleChoiceField(
 				widget=forms.CheckboxSelectMultiple,
 				choices=RARITY,required=False)

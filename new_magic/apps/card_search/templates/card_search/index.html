@@ -6,7 +6,7 @@
 	<title></title>
 </head>
 <body>
-	<form action="/card_search/" method="get">
+	<form action="/card_search/" method="post">
 		{% csrf_token %}
 		{{search_form}}
 		<button type="submit">Submit</button>

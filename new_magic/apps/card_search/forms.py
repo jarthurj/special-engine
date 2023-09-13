@@ -8,7 +8,8 @@ COLOR_CHOICES = (
 	('G','Green'))
 EXACT = (
 	('exact','Exactly these colors'),
-	('contains','Contains these colors'))
+	('contains','Contains these colors'),
+	('default','-'))
 RARITY = (
 	('mythic','mythic'),
 	('rare','rare'),
@@ -64,7 +65,9 @@ class CardSearch(forms.Form):
 				choices=COLOR_CHOICES,required=False)
 	exactly_or_not = forms.MultipleChoiceField(
 				widget=forms.SelectMultiple,
-				choices=EXACT,required=False)
+				choices=EXACT,
+				required=False,
+				initial=EXACT[2])
 	colors_identity = forms.MultipleChoiceField(
 				widget=forms.CheckboxSelectMultiple,
 				choices=COLOR_CHOICES,required=False)

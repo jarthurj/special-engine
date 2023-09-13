@@ -1,4 +1,3 @@
-from django.db.models.query import QuerySet
 from .models import *
 
 
@@ -18,15 +17,48 @@ def color_query(colors_list,exact_or_not):
 		for c in ['R','W','B','U','G']:
 			if c not in colors_list:
 				difference_colors.append(c)
+		print(difference_colors)
 		cards_list = []
 		all_cards = Card.objects.all()
-		no_cards = QuerySet()
 		for color in colors_list:
 			cards_list.append(Color.objects.filter(color=color).first().cards.all())
 		cards_list_intersection = all_cards.intersection(*cards_list)
-		difference_cards = []
+
+		difference_cards_list = []
 		for color in difference_colors:
-			difference_cards.append(Color.objects.filter(color=color).first().cards.all())
-		no_cards = no_cards.union(*difference_cards)
-		print(no_cards)
-		return no_cards.difference(cards_list_intersection)
+			difference_cards_list.append(Color.objects.filter(color=color).first().cards.all())
+
+		difference_cards = Card.objects.none().union(*difference_cards_list)
+		return_cards = cards_list_intersection.difference(cards_list_intersection.intersection(difference_cards))
+		return return_cards
+
+
+def rarity_query(rarity_list):
+	empty_rarity_cards = Card.objects.none()
+	for rarity in rarity_list:
+		empty_rarity_cards = empty_rarity_cards.union(Rarity.objects.filter(rarity=rarity).first().cards)
+	return empty_rarity_cards.all()
+
+def mpt_query(mpt,mpt_cond,mpt_param):
+	if mpt=='mana':
+		if mpt_cond == 'equal':
+			return Card.objects.filter(cmc=mpt_parameter)
+		elif mpt_cond == 'gt':
+			return Card.objects.filter(cmc__gt=mpt_parameter)
+		elif mpt_cond == 'lt':
+			return Card.objects.filter(cmc__lt=mpt_parameter)
+		elif mpt_cond == 'lte':
+			return Card.objects.filter(cmc__lte=mpt_parameter)
+		elif mpt_cond == 'gte':
+			return Card.objects.filter(cmc__gte=mpt_parameter)
+		elif mpt_cond == 'nte':
+			gt = Card.objects.filter(cmc__gt=mpt_parameter)
+			lt = Card.objects.filter(cmc__lt=mpt_parameter)
+			return gt.union(lt)
+
+	elif mpt=='power':
+		pass
+	elif mpt=='toughness':
+		pass
+	elif mpt=='none':
+		return Card.objects.none()

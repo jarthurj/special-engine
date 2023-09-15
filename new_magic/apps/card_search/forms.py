@@ -23,8 +23,8 @@ MPT = (
 MPTCONS = (
 	("none","-"),
 	("equal","equal to"),
-	("gt","greater than to"),
-	("lt","less than to"),
+	("gt","greater than"),
+	("lt","less than"),
 	("lte","less than or equal to"),
 	("gte","greater than or equal to"),
 	("nte","not equal to"),)

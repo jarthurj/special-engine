@@ -22,10 +22,12 @@ def search(request):
 	rarity_cards = rarity_query(request.POST.getlist('rarity'))
 
 	mpt_cards = mpt_query(request.POST['mpt'],
-							request.POST['mpt_conditions'],
+							request.POST['mpt_condition'],
 							request.POST['mpt_parameter'])
+
+	lrb_cards = lrb_query(request.POST['lrb'],request.POST['game_types'])
 	# matching_cards = all_cards.intersection(name_cards, color_cards)
 	context = {
-			'cards':rarity_cards,
+			'cards':lrb_cards,
 		}
 	return render(request, 'card_search/cards.html', context)

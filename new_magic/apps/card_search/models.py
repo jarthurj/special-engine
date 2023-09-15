@@ -5,10 +5,10 @@ class Cmc(models.Model):
 	cmc = models.DecimalField(decimal_places=1, max_digits=9, null=True)
 
 class Power(models.Model):
-	power = models.CharField(max_length=30)
+	power = models.IntegerField(blank=True,null=True)
 
 class Toughness(models.Model):
-	toughness = models.CharField(max_length=30)
+	toughness = models.IntegerField(blank=True,null=True)
 
 class Rarity(models.Model):
 	rarity = models.CharField(max_length=10)
@@ -38,8 +38,8 @@ class ManaCost(models.Model):
 
 class Card(models.Model):
 	name = models.CharField(max_length=50)
-	power = models.ForeignKey(Power, related_name="cards", on_delete=models.CASCADE)
-	toughness = models.ForeignKey(Toughness, related_name="cards", on_delete=models.CASCADE)
+	power = models.ForeignKey(Power, related_name="cards", on_delete=models.CASCADE, null=True)
+	toughness = models.ForeignKey(Toughness, related_name="cards", on_delete=models.CASCADE, null=True)
 	cmc = models.ForeignKey(Cmc, related_name="cards", on_delete=models.CASCADE)
 	rarity = models.ForeignKey(Rarity, related_name="cards", on_delete=models.CASCADE)
 	scryfall_id = models.CharField(max_length=100)

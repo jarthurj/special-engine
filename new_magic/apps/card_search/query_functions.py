@@ -32,7 +32,6 @@ def color_query(colors_list,exact_or_not):
 		return_cards = cards_list_intersection.difference(cards_list_intersection.intersection(difference_cards))
 		return return_cards
 
-
 def rarity_query(rarity_list):
 	empty_rarity_cards = Card.objects.none()
 	for rarity in rarity_list:
@@ -42,23 +41,54 @@ def rarity_query(rarity_list):
 def mpt_query(mpt,mpt_cond,mpt_param):
 	if mpt=='mana':
 		if mpt_cond == 'equal':
-			return Card.objects.filter(cmc=mpt_parameter)
+			return Card.objects.filter(cmc=Cmc.objects.get(cmc=int(mpt_param)))
 		elif mpt_cond == 'gt':
-			return Card.objects.filter(cmc__gt=mpt_parameter)
+			return Card.objects.filter(cmc__gt=Cmc.objects.get(cmc=int(mpt_param)))
 		elif mpt_cond == 'lt':
-			return Card.objects.filter(cmc__lt=mpt_parameter)
+			return Card.objects.filter(cmc__lt=Cmc.objects.get(cmc=int(mpt_param)))
 		elif mpt_cond == 'lte':
-			return Card.objects.filter(cmc__lte=mpt_parameter)
+			return Card.objects.filter(cmc__lte=Cmc.objects.get(cmc=int(mpt_param)))
 		elif mpt_cond == 'gte':
-			return Card.objects.filter(cmc__gte=mpt_parameter)
+			return Card.objects.filter(cmc__gte=Cmc.objects.get(cmc=int(mpt_param)))
 		elif mpt_cond == 'nte':
-			gt = Card.objects.filter(cmc__gt=mpt_parameter)
-			lt = Card.objects.filter(cmc__lt=mpt_parameter)
+			gt = Card.objects.filter(cmc__gt=Cmc.objects.get(cmc=int(mpt_param)))
+			lt = Card.objects.filter(cmc__lt=Cmc.objects.get(cmc=int(mpt_param)))
 			return gt.union(lt)
-
 	elif mpt=='power':
-		pass
+		if mpt_cond == 'equal':
+			return Card.objects.filter(power=Power.objects.get(power=int(mpt_param)))
+		elif mpt_cond == 'gt':
+			return Card.objects.filter(power__gt=Power.objects.get(power=int(mpt_param)))
+		elif mpt_cond == 'lt':
+			return Card.objects.filter(power__lt=Power.objects.get(power=int(mpt_param)))
+		elif mpt_cond == 'lte':
+			return Card.objects.filter(power__lte=Power.objects.get(power=int(mpt_param)))
+		elif mpt_cond == 'gte':
+			return Card.objects.filter(power__gte=Power.objects.get(power=int(mpt_param)))
+		elif mpt_cond == 'nte':
+			gt = Card.objects.filter(power__gt=Power.objects.get(power=int(mpt_param)))
+			lt = Card.objects.filter(power__lt=Power.objects.get(power=int(mpt_param)))
+			return gt.union(lt)
 	elif mpt=='toughness':
-		pass
+		if mpt_cond == 'equal':
+			return Card.objects.filter(toughness=Toughness.objects.get(toughness=int(mpt_param)))
+		elif mpt_cond == 'gt':
+			return Card.objects.filter(toughness__gt=Toughness.objects.get(toughness=int(mpt_param)))
+		elif mpt_cond == 'lt':
+			return Card.objects.filter(toughness__lt=Toughness.objects.get(toughness=int(mpt_param)))
+		elif mpt_cond == 'lte':
+			return Card.objects.filter(toughness__lte=Toughness.objects.get(toughness=int(mpt_param)))
+		elif mpt_cond == 'gte':
+			return Card.objects.filter(toughness__gte=Toughness.objects.get(toughness=int(mpt_param)))
+		elif mpt_cond == 'nte':
+			gt = Card.objects.filter(toughness__gt=Toughness.objects.get(toughness=int(mpt_param)))
+			lt = Card.objects.filter(toughness__lt=Toughness.objects.get(toughness=int(mpt_param)))
+			return gt.union(lt)
 	elif mpt=='none':
 		return Card.objects.none()
+
+
+def lrb_query(lrb, game_type):
+	legals =  Legality.objects.get(legality=lrb,
+								game_type=GameType.objects.get(game_type=game_type))
+	return legals.cards.all()

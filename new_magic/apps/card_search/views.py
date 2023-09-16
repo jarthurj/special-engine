@@ -28,6 +28,6 @@ def search(request):
 	lrb_cards = lrb_query(request.POST['lrb'],request.POST['game_types'])
 	# matching_cards = all_cards.intersection(name_cards, color_cards)
 	context = {
-			'cards':lrb_cards,
+			'cards':mpt_cards,
 		}
 	return render(request, 'card_search/cards.html', context)

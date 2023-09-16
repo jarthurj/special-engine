@@ -56,7 +56,7 @@ def mpt_query(mpt,mpt_cond,mpt_param):
 			return gt.union(lt)
 	elif mpt=='power':
 		if mpt_cond == 'equal':
-			return Card.objects.filter(power=Power.objects.get(power=int(mpt_param)))
+			return Card.objects.filter(power=Power.objects.get(power=int(mpt_param))).all()
 		elif mpt_cond == 'gt':
 			return Card.objects.filter(power__gt=Power.objects.get(power=int(mpt_param)))
 		elif mpt_cond == 'lt':
@@ -89,6 +89,9 @@ def mpt_query(mpt,mpt_cond,mpt_param):
 
 
 def lrb_query(lrb, game_type):
-	legals =  Legality.objects.get(legality=lrb,
-								game_type=GameType.objects.get(game_type=game_type))
-	return legals.cards.all()
+	if lrb != 'none':
+		legals =  Legality.objects.get(legality=lrb,
+									game_type=GameType.objects.get(game_type=game_type))
+		return legals.cards.all()
+	else:
+		return Card.objects.none()

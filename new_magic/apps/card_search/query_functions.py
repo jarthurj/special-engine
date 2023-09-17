@@ -2,10 +2,16 @@ from .models import *
 
 
 def name_query(card_name):
+	if card_name == "":
+		print("CARD NAME QUERY EMPTY")
+		return Card.objects.none()
 	name_cards = Card.objects.filter(name__contains=card_name).all()
 	return name_cards
 
 def color_query(colors_list,exact_or_not):
+	if colors_list == []:
+		print("COLORS LIST QUERY EMPTY")
+		return Card.objects.none()
 	if exact_or_not == 'contains':
 		cards_list = []
 		all_cards = Card.objects.all()
@@ -17,7 +23,6 @@ def color_query(colors_list,exact_or_not):
 		for c in ['R','W','B','U','G']:
 			if c not in colors_list:
 				difference_colors.append(c)
-		print(difference_colors)
 		cards_list = []
 		all_cards = Card.objects.all()
 		for color in colors_list:
@@ -33,26 +38,32 @@ def color_query(colors_list,exact_or_not):
 		return return_cards
 
 def color_identity_query(colors_identity_list):
-		difference_colors = []
-		for c in ['R','W','B','U','G']:
-			if c not in colors_list:
-				difference_colors.append(c)
-		print(difference_colors)
-		cards_list = []
-		all_cards = Card.objects.all()
-		for color in colors_identity_list:
-			cards_list.append(Color.objects.filter(color=color).first().cards.all())
-		cards_list_intersection = all_cards.intersection(*cards_list)
+	if colors_identity_list ==[]:
+		print("COLORS IDENTITY QUERY EMPTY")
+		return Card.objects.none()
+	difference_colors = []
+	for c in ['R','W','B','U','G']:
+		if c not in colors_identity_list:
+			difference_colors.append(c)
+	cards_list = []
+	all_cards = Card.objects.all()
+	for color in colors_identity_list:
+		cards_list.append(Color.objects.filter(color=color).first().cards.all())
+	cards_list_intersection = all_cards.intersection(*cards_list)
 
-		difference_cards_list = []
-		for color in difference_colors:
-			difference_cards_list.append(Color.objects.filter(color=color).first().cards.all())
+	difference_cards_list = []
+	for color in difference_colors:
+		difference_cards_list.append(Color.objects.filter(color=color).first().cards.all())
 
-		difference_cards = Card.objects.none().union(*difference_cards_list)
-		return_cards = cards_list_intersection.difference(cards_list_intersection.intersection(difference_cards))
-		return return_cards
+	difference_cards = Card.objects.none().union(*difference_cards_list)
+	return_cards = cards_list_intersection.difference(cards_list_intersection.intersection(difference_cards))
+	return return_cards
+# need to add in a union with all cards with ONLY those identities
 
 def rarity_query(rarity_list):
+	if rarity_list == []:
+		print("RARITY LIST QUERY EMPTY")
+		return Card.objects.none()
 	empty_rarity_cards = Card.objects.none()
 	for rarity in rarity_list:
 		empty_rarity_cards = empty_rarity_cards.union(Rarity.objects.filter(rarity=rarity).first().cards)
@@ -105,6 +116,7 @@ def mpt_query(mpt,mpt_cond,mpt_param):
 			lt = Card.objects.filter(toughness__lt=Toughness.objects.get(toughness=int(mpt_param)))
 			return gt.union(lt)
 	elif mpt=='none':
+		print("MPT QUERY EMPTY")
 		return Card.objects.none()
 
 
@@ -114,9 +126,13 @@ def lrb_query(lrb, game_type):
 									game_type=GameType.objects.get(game_type=game_type))
 		return legals.cards.all()
 	else:
+		print("LRB QUERY EMPTY")
 		return Card.objects.none()
 
 def all_text_query(text):
+	if text == "":
+		print("ALL TEXT QUERY EMPTY")
+		return Card.objects.none()
 	names = Card.objects.filter(name__icontains=text)
 	types = Card.objects.filter(type_line__icontains=text)
 	oracle = Card.objects.filter(oracle_text__icontains=text)
@@ -124,8 +140,11 @@ def all_text_query(text):
 	empty = Card.objects.none()
 	return empty.union(names, types, oracle, flavor)
 
-def type_query(type):
-	type_cards = Card.objects.filter(type_line__icontains=type)
+def type_query(typer):
+	if typer == "":
+		print("TYPE QUERY EMPTY")
+		return Card.objects.none()
+	type_cards = Card.objects.filter(type_line__icontains=typer)
 	return type_cards
 
 

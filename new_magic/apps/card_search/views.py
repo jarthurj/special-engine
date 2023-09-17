@@ -10,8 +10,8 @@ def index(request):
 	return render(request, "card_search/index.html",context)
 
 def search(request):
-	# for key, value in request.POST.items():
-	# 	print(key, value, type(key), type(value))
+	for key, value in request.POST.items():
+		print(key, value, type(value))
 	all_cards = Card.objects.all()
 
 	name_cards = name_query(request.POST['card_name'])
@@ -31,11 +31,18 @@ def search(request):
 	all_text_cards = all_text_query(request.POST['any_text'])
 	type_cards = type_query(request.POST['type_line'])
 
+	all_queries = [name_cards, color_cards,color_identity_cards,
+						rarity_cards, mpt_cards, lrb_cards, 
+						all_text_cards, type_cards]
 
-	matching_cards = all_cards.intersection(name_cards, color_cards,
-					color_identity_cards, rarity_cards, mpt_cards,
-					lrb_cards, all_text_cards, type_cards)
+	matching_queries = []
+
+	for query in all_queries:
+		if query != Card.objects.none():
+			matching_queries.append(query)
+
+	matching_cards = matching_queries[0].intersection(*matching_queries)
 	context = {
-			'cards':matching_cards,
+			'cards':color_identity_cards,
 		}
 	return render(request, 'card_search/cards.html', context)

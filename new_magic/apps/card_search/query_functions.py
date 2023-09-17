@@ -32,6 +32,26 @@ def color_query(colors_list,exact_or_not):
 		return_cards = cards_list_intersection.difference(cards_list_intersection.intersection(difference_cards))
 		return return_cards
 
+def color_identity_query(colors_identity_list):
+		difference_colors = []
+		for c in ['R','W','B','U','G']:
+			if c not in colors_list:
+				difference_colors.append(c)
+		print(difference_colors)
+		cards_list = []
+		all_cards = Card.objects.all()
+		for color in colors_identity_list:
+			cards_list.append(Color.objects.filter(color=color).first().cards.all())
+		cards_list_intersection = all_cards.intersection(*cards_list)
+
+		difference_cards_list = []
+		for color in difference_colors:
+			difference_cards_list.append(Color.objects.filter(color=color).first().cards.all())
+
+		difference_cards = Card.objects.none().union(*difference_cards_list)
+		return_cards = cards_list_intersection.difference(cards_list_intersection.intersection(difference_cards))
+		return return_cards
+
 def rarity_query(rarity_list):
 	empty_rarity_cards = Card.objects.none()
 	for rarity in rarity_list:
@@ -95,3 +115,17 @@ def lrb_query(lrb, game_type):
 		return legals.cards.all()
 	else:
 		return Card.objects.none()
+
+def all_text_query(text):
+	names = Card.objects.filter(name__icontains=text)
+	types = Card.objects.filter(type_line__icontains=text)
+	oracle = Card.objects.filter(oracle_text__icontains=text)
+	flavor = Card.objects.filter(flavor_text__icontains=text)
+	empty = Card.objects.none()
+	return empty.union(names, types, oracle, flavor)
+
+def type_query(type):
+	type_cards = Card.objects.filter(type_line__icontains=type)
+	return type_cards
+
+

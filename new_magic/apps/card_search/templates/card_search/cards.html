@@ -3,13 +3,35 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 	<script src=
+"https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js">  
+	</script>
+
+	<script src=
+"https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.js">  
+	</script>
+
+	<link href=
+"http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/ui-lightness/jquery-ui.css"
+rel="stylesheet" type="text/css" />   -->
 	<title>
 	</title>
 </head>
 <body>
-	{{cards.count}}
 	{% for c in cards %}
 		<img src="{{c.image_normal}}"/>
 	{% endfor %}
+<!-- 	<script>
+		$( function() {
+			var availableTags = [
+				{% for language in languages %}
+					"{{language.name}}",
+				{% endfor %}
+			];
+			$( "#tags" ).autocomplete({
+				source: availableTags
+			});
+		} );
+	</script> -->
 </body>
 </html>

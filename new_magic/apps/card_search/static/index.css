@@ -1,0 +1,26 @@
+div{
+	border:1px solid red;
+/*	margin-bottom:10px;*/
+}
+
+
+#wrapper{
+	width:1000px;
+	margin:0px auto;
+	font-family: sans-serif;
+}
+
+
+#id_colors,#id_colors_identity, #id_rarity{
+	display:flex;
+/*	justify-content:space-around;*/
+}
+
+.labeler{
+	width:150px;
+}
+.labeler-div{
+	display:flex;
+	align-items:center;
+	margin-bottom:15px;
+}

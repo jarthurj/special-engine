@@ -5,7 +5,7 @@ def name_query(card_name):
 	if card_name == "":
 		print("CARD NAME QUERY EMPTY")
 		return Card.objects.none()
-	name_cards = Card.objects.filter(name__contains=card_name).all()
+	name_cards = Card.objects.filter(name__icontains=card_name).all()
 	return name_cards
 
 def color_query(colors_list,exact_or_not):
@@ -18,7 +18,7 @@ def color_query(colors_list,exact_or_not):
 		for color in colors_list:
 			cards_list.append(Color.objects.filter(color=color).first().cards.all())
 		return all_cards.intersection(*cards_list)
-	else:
+	elif exact_or_not=='exact':
 		difference_colors = []
 		for c in ['R','W','B','U','G']:
 			if c not in colors_list:
@@ -36,28 +36,45 @@ def color_query(colors_list,exact_or_not):
 		difference_cards = Card.objects.none().union(*difference_cards_list)
 		return_cards = cards_list_intersection.difference(cards_list_intersection.intersection(difference_cards))
 		return return_cards
+	elif exact_or_not=='at_most':
+		cards_list = []
+		all_cards = Card.objects.all()
+		for color in colors_list:
+			cards_list.append(Color.objects.filter(color=color).first().cards.all())
+		all_cards_with_searched_colors = Card.objects.none().union(*cards_list)
+		difference_colors = []
+		for c in ['R','W','B','U','G']:
+			if c not in colors_list:
+				difference_colors.append(c)
+		difference_cards_list = []
+		for color in difference_colors:
+			difference_cards_list.append(Color.objects.filter(color=color).first().cards.all())
+
+		difference_cards = Card.objects.none().union(*difference_cards_list)
+		return_cards = all_cards_with_searched_colors.difference(all_cards_with_searched_colors.intersection(difference_cards))
+		return return_cards
+
 
 def color_identity_query(colors_identity_list):
 	if colors_identity_list ==[]:
 		print("COLORS IDENTITY QUERY EMPTY")
 		return Card.objects.none()
-	difference_colors = []
-	for c in ['R','W','B','U','G']:
-		if c not in colors_identity_list:
-			difference_colors.append(c)
-	cards_list = []
-	all_cards = Card.objects.all()
-	for color in colors_identity_list:
-		cards_list.append(Color.objects.filter(color=color).first().cards.all())
-	cards_list_intersection = all_cards.intersection(*cards_list)
+		cards_list = []
+		all_cards = Card.objects.all()
+		for color in colors_identity_list:
+			cards_list.append(Color.objects.filter(color=color).first().cards.all())
+		all_cards_with_searched_colors = Card.objects.none().union(*cards_list)
+		difference_colors = []
+		for c in ['R','W','B','U','G']:
+			if c not in colors_list:
+				difference_colors.append(c)
+		difference_cards_list = []
+		for color in difference_colors:
+			difference_cards_list.append(Color.objects.filter(color=color).first().cards.all())
 
-	difference_cards_list = []
-	for color in difference_colors:
-		difference_cards_list.append(Color.objects.filter(color=color).first().cards.all())
-
-	difference_cards = Card.objects.none().union(*difference_cards_list)
-	return_cards = cards_list_intersection.difference(cards_list_intersection.intersection(difference_cards))
-	return return_cards
+		difference_cards = Card.objects.none().union(*difference_cards_list)
+		return_cards = all_cards_with_searched_colors.difference(all_cards_with_searched_colors.intersection(difference_cards))
+		return return_cards
 # need to add in a union with all cards with ONLY those identities
 
 def rarity_query(rarity_list):

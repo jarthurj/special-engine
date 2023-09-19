@@ -9,12 +9,13 @@ COLOR_CHOICES = (
 EXACT = (
 	('exact','Exactly these colors'),
 	('contains','Contains these colors'),
+	('at_most','At most these colors'),
 	('default','-'))
 RARITY = (
-	('mythic','mythic'),
-	('rare','rare'),
-	('uncommon','uncommon'),
-	('common','common'))
+	('mythic','Mythic'),
+	('rare','Rare'),
+	('uncommon','Uncommon'),
+	('common','Common'))
 MPT = (
 	("none","-"),
 	('mana', 'Converted Mana Cost'),
@@ -57,36 +58,70 @@ GAME_TYPES=(
 	('gladiator',"Gladiator"),
 	('explorer',"Explorer"),)
 
-
+	
 class CardSearch(forms.Form):
-	card_name = forms.CharField(max_length=50, required=False)
+	card_name = forms.CharField(max_length=50, 
+				required=False,
+				widget=forms.TextInput(attrs={'class':'name',
+						'placeholder':'Any words in the name ex."Fire"'}),
+				label="Card Name:")
+
+	any_text = forms.CharField(max_length=50,
+				required=False,
+				label="Text:",
+				widget=forms.TextInput(attrs={'class':'name',
+						'placeholder':'Any text on the card ex."Draw a card"'}))
+
 	colors = forms.MultipleChoiceField(
-				widget=forms.CheckboxSelectMultiple,
-				choices=COLOR_CHOICES,required=False)
+				widget=forms.CheckboxSelectMultiple(attrs={'class':'colors'}),
+				choices=COLOR_CHOICES,required=False,
+				label="Colors:")
+
+
 	exactly_or_not = forms.MultipleChoiceField(
-				widget=forms.SelectMultiple,
+				widget=forms.SelectMultiple(attrs={'class':'exact'}),
 				choices=EXACT,
 				required=False,
-				initial=EXACT[2])
+				initial=EXACT[3],
+				label="")
+
 	colors_identity = forms.MultipleChoiceField(
-				widget=forms.CheckboxSelectMultiple,
-				choices=COLOR_CHOICES,required=False)
+				widget=forms.CheckboxSelectMultiple(attrs={'class':'colors_ident'}),
+				choices=COLOR_CHOICES,required=False,
+				label="Color Identity:")
+
 	rarity = forms.MultipleChoiceField(
 				widget=forms.CheckboxSelectMultiple,
-				choices=RARITY,required=False)
+				choices=RARITY,required=False,
+				label="Rarity:")
+
 	#mpt = mana power toughness
 	mpt = forms.MultipleChoiceField(
 				widget=forms.Select,
-				choices=MPT,required=False)
+				choices=MPT,required=False,
+				label="Stats:")
+
 	mpt_condition = forms.MultipleChoiceField(
 				widget=forms.Select,
-				choices=MPTCONS,required=False)
-	mpt_parameter = forms.CharField(max_length=10, required=False)
+				choices=MPTCONS,required=False,
+				label="")
+
+	mpt_parameter = forms.CharField(max_length=10, required=False, 
+		label="",
+		widget=forms.TextInput(attrs={'class':'mpt',
+						'placeholder':'ex. 6'}))
+
 	lrb = forms.MultipleChoiceField(
 				widget=forms.Select,
-				choices=LRB,required=False)
+				choices=LRB,required=False,
+				label="Formats")
+
 	game_types = forms.MultipleChoiceField(
 				widget=forms.Select,
-				choices=GAME_TYPES,required=False)
-	type_line = forms.CharField(max_length=50,required=False)
-	any_text = forms.CharField(max_length=50,required=False)
+				choices=GAME_TYPES,required=False,
+				label="")
+
+	type_line = forms.CharField(max_length=50,required=False,
+		widget=forms.TextInput(attrs={'class':'type',
+						'placeholder':'ex. Creature'}))
+	

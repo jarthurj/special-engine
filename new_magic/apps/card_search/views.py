@@ -43,6 +43,6 @@ def search(request):
 
 	matching_cards = matching_queries[0].intersection(*matching_queries)
 	context = {
-			'cards':color_identity_cards,
+			'cards':color_cards,
 		}
 	return render(request, 'card_search/cards.html', context)

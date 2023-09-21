@@ -8,6 +8,10 @@
 	<link href="../../static/index.css" rel="stylesheet"/>
 </head>
 <body>
+	<div id="header">
+		<h1>MAGIC</h1>
+		<a href="">LOGIN</a>
+	</div>
 	<div id="wrapper">
 		<form action="/card_search/" method="post">
 			{% csrf_token %}
@@ -55,11 +59,11 @@
 				{{search_form.game_types}}
 			</div>
 			<hr>
-			<div class="labeler-div">
+			<div class="labeler-div" id="type_line">
 				<p class="labeler">{{search_form.type_line.label}}</p>
 				{{search_form.type_line}}
 			</div>
-			<button type="submit">Submit</button>
+			<button type="submit" id="btn">Submit</button>
 		</form>
 	</div>
 </body>

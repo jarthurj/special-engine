@@ -114,7 +114,7 @@ class CardSearch(forms.Form):
 	lrb = forms.MultipleChoiceField(
 				widget=forms.Select,
 				choices=LRB,required=False,
-				label="Formats")
+				label="Formats:")
 
 	game_types = forms.MultipleChoiceField(
 				widget=forms.Select,
@@ -122,6 +122,7 @@ class CardSearch(forms.Form):
 				label="")
 
 	type_line = forms.CharField(max_length=50,required=False,
+		label="Type Line:",
 		widget=forms.TextInput(attrs={'class':'type',
-						'placeholder':'ex. Creature'}))
+						'placeholder':'ex."Creature"'}))
 	

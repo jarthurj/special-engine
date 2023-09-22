@@ -3,6 +3,8 @@ from .forms import CardSearch
 from .models import *
 from django.db.models.query import QuerySet
 from .query_functions import *
+
+
 def index(request):
 	context = {
 		'search_form':CardSearch()
@@ -42,7 +44,40 @@ def search(request):
 			matching_queries.append(query)
 
 	matching_cards = matching_queries[0].intersection(*matching_queries)
+	matching_cards_ids = []
+	for x in matching_cards:
+		matching_cards_ids.append(x.id)
+	request.session['card_ids'] = matching_cards_ids
+	# context = {
+	# 		'cards':matching_cards,
+	# 	}
+	# return render(request, 'card_search/cards.html', context)
+	return redirect('cards',page=1)
+
+def card_pages(request,page):
+	if page ==1:
+		cards = request.session['card_ids'][:60]
+	else:
+		cards = request.session['card_ids'][60*page:(60*page)+60]
+	to_union = []
+	for x in cards:
+		to_union.append(Card.objects.filter(id=x))
+	page_cards = to_union[0].union(*to_union)
+	page_one = False
+	if page == 1:
+		page_one = True
 	context = {
-			'cards':color_cards,
-		}
+		'cards':page_cards,
+		'page':page,
+		'page_one':page_one,
+		'prev_page':page-1,
+		'next_page':page+1,
+	}
 	return render(request, 'card_search/cards.html', context)
+
+def single_card(request,card_id):
+	card = Card.objects.filter(id=card_id).first()
+	context = {
+		'card':card,
+	}
+	return render(request,'card_search/single_card.html', context)

@@ -20,4 +20,6 @@ from . import views
 urlpatterns = [
     path('', views.index, name="index"),
     path('card_search/', views.search, name="search"),
+    path('cards/<int:page>/', views.card_pages, name="cards"),
+    path('card/<int:card_id>/', views.single_card, name="single"),
 ]

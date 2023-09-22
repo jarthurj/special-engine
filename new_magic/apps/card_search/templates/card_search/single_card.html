@@ -5,7 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title></title>
 	<link href="../../static/reset.css" rel="stylesheet"/>
-	<link href="../../static/index.css" rel="stylesheet"/>
+	<link href="../../static/single_card.css" rel="stylesheet"/>
 </head>
 <body>
 	<div id="header">
@@ -17,6 +17,27 @@
 			<img src="{{card.image_normal}}"/></a>
 		</div>
 		<div>
+			<p>{{card.name}}</p>
+			<p>{{card.type_line}}</p>
+			<p>{{card.oracle_text}}</p>
+
+			<div>
+				{% for l in card.legality.all %}
+					{% if l.legality == "legal"%}
+						<p>{{l.game_type.game_type}} <span id="legal">{{l.legality}}</p>
+					{% else %}
+						<p>{{l.game_type.game_type}} <span id="not_legal">{{l.legality}}</span></p>
+					{% endif %}
+				{% endfor %}
+			</div>
+		</div>
+		<div>
+			<h2>Prints</h2>
+			<ul>
+			{% for card in printings %}
+				<li><a href="/card/{{card.id}}">{{card.card_set.name}}</a></li>
+			{% endfor %}
+			</ul>
 		</div>
 	</div>
 </body>

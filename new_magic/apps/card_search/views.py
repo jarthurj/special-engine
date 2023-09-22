@@ -77,7 +77,9 @@ def card_pages(request,page):
 
 def single_card(request,card_id):
 	card = Card.objects.filter(id=card_id).first()
+	printings = Card.objects.filter(name=card.name)
 	context = {
 		'card':card,
+		'printings':printings,
 	}
 	return render(request,'card_search/single_card.html', context)

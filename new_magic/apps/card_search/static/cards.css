@@ -20,7 +20,7 @@ html{
 
 h1{
 	display:inline-block;
-	color:#F45B69;
+
 }
 
 #login{
@@ -29,6 +29,10 @@ h1{
 	text-decoration: none;
 }
 
+a{
+		color:#F45B69;
+	text-decoration:none;
+}
 
 #wrapper{
 	margin:0px auto;
@@ -39,7 +43,7 @@ h1{
 }
 
 #naver{
-	margin:0px auto;
+	margin:30px auto;
 	width:10%;
 	padding:0px 20px; 
 	display:flex;
@@ -47,25 +51,22 @@ h1{
 
 }
 
+img{
+	width:275px;
+	margin-bottom: 5px;
+	border-radius:15px;
+}
+
 @media only screen and (max-width:767px){
-	img{
-		width:275px;
-		margin-bottom: 5px;
-	}
+
 }
 
 @media only screen and (min-width:768px){
-	img{
-		width:275px;
-		margin-bottom: 5px;
-	}
+
 
 }
 
 @media only screen and (min-width:1024px){
-	img{
-		width:275px;
-		margin-bottom: 5px;
-	}
+
 
 }

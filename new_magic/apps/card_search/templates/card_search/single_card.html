@@ -9,33 +9,43 @@
 </head>
 <body>
 	<div id="header">
-		<h1>MAGIC</h1>
+		<h1><a href="/">MAGIC</a></h1>
 		<a href="">LOGIN</a>
 	</div>
 	<div id="wrapper">
-		<div>
+		<div id="card_img">
 			<img src="{{card.image_normal}}"/></a>
 		</div>
-		<div>
+		<div id="card_info">
 			<p>{{card.name}}</p>
 			<p>{{card.type_line}}</p>
 			<p>{{card.oracle_text}}</p>
-
-			<div>
+			<div id="legals">
 				{% for l in card.legality.all %}
-					{% if l.legality == "legal"%}
-						<p>{{l.game_type.game_type}} <span id="legal">{{l.legality}}</p>
-					{% else %}
-						<p>{{l.game_type.game_type}} <span id="not_legal">{{l.legality}}</span></p>
+					{% if l.legality == "legal" %}
+						<p class="game">{{l.game_type.game_type}} <span id="legal">LEGAL</p>
+					{% endif %}
+					{% if l.legality == "not_legal" %}
+						<p class="game">{{l.game_type.game_type}} <span id="not_legal">NOT LEGAL</span></p>
+					{% endif %}
+					{% if l.legality == "restricted" %}
+						<p class="game">{{l.game_type.game_type}} <span id="restricted">RESTRICTED</span></p>
+					{% endif %}
+					{% if l.legality == "banned" %}
+						<p class="game">{{l.game_type.game_type}} <span id="not_legal">BANNED</span></p>
 					{% endif %}
 				{% endfor %}
 			</div>
 		</div>
-		<div>
-			<h2>Prints</h2>
+		<div id="prints">
+			<h2>Other Printings</h2>
 			<ul>
-			{% for card in printings %}
-				<li><a href="/card/{{card.id}}">{{card.card_set.name}}</a></li>
+			{% for c in printings %}
+				{% if c.id == card.id %}
+					
+				{%else%}
+					<li><a href="/card/{{c.id}}">{{c.card_set.name}}</a></li>
+				{% endif %}
 			{% endfor %}
 			</ul>
 		</div>

@@ -5,21 +5,40 @@ from django.db.models.query import QuerySet
 from .query_functions import *
 from django.contrib import messages
 
+
+
 def index(request):
+	request.session.flush()
 	context = {
 		'search_form':CardSearch()
 	}
 	return render(request, "card_search/index.html",context)
 
 def search(request):
+	request.session.flush()
 	for key, value in request.POST.items():
 		print(key, value, type(value))
 	errors = {}
 
-	if request.POST.getlist('colors') != [] and request.POST['exactly_or_not']:
+	if ((request.POST.get('colors',"")!= "" or 
+		request.POST.getlist('colors') != []) and 
+							request.POST['exactly_or_not']=='default'):
 		errors['color_error'] = "Please select how to search colors!!!!!!"
+
+	if ((request.POST.get('mpt',"none")=="none" and 
+		request.POST.get('mpt_condition', "none")!="none") or
+		((request.POST.get('mpt',"none")!="none" and 
+		request.POST.get('mpt_condition', "none")=="none"))):
+		errors['format_error'] = "Please select all conditions for format query"
+
+	if ((request.POST.get('lrb',"none")=="none" and 
+		request.POST.get('game_types', "none")!="none") or
+		((request.POST.get('lrb',"none")!="none" and 
+		request.POST.get('game_types', "none")=="none"))):
+		errors['mpt_error'] = "Please select all conditions for stats query"
+	if errors:
 		for key, value in errors.items():
-			messages.error(request, value)
+				messages.error(request, value)
 		return redirect('index')
 	else:
 		all_cards = Card.objects.all()
@@ -34,7 +53,7 @@ def search(request):
 		color_identity_cards = color_identity_query(request.POST.getlist('colors_identity'))
 
 		rarity_cards = rarity_query(request.POST.getlist('rarity'))
-		#NEED TO ADD IN ERRORS IF "-" IS SELECTED 
+
 
 		mpt_cards = mpt_query(request.POST['mpt'],
 								request.POST['mpt_condition'],
@@ -97,8 +116,24 @@ def card_pages(request,page):
 def single_card(request,card_id):
 	card = Card.objects.filter(id=card_id).first()
 	printings = Card.objects.filter(name=card.name)
+	if len(printings) > 11:
+		printings = printings[:11]
 	context = {
 		'card':card,
 		'printings':printings,
 	}
 	return render(request,'card_search/single_card.html', context)
+
+def all_prints(request,card_id):
+	request.session.flush()
+	name_cards = name_query(Card.objects.get(id=card_id).name)
+	# matching_cards = Card.objects.all().intersection(*name_cards)
+	matching_cards_ids = []
+	for x in name_cards:
+		matching_cards_ids.append(x.id)
+	request.session['card_ids'] = matching_cards_ids
+	# context = {
+	# 		'cards':matching_cards,
+	# 	}
+	# return render(request, 'card_search/cards.html', context)
+	return redirect('cards',page=1)

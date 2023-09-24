@@ -17,9 +17,11 @@
 			<img src="{{card.image_normal}}"/></a>
 		</div>
 		<div id="card_info">
-			<p>{{card.name}}</p>
-			<p>{{card.type_line}}</p>
-			<p>{{card.oracle_text}}</p>
+			<div>
+				<p>{{card.name}}</p>
+				<p>{{card.type_line}}</p>
+				<p>{{card.oracle_text}}</p>
+			</div>
 			<div id="legals">
 				{% for l in card.legality.all %}
 					{% if l.legality == "legal" %}
@@ -47,6 +49,7 @@
 					<li><a href="/card/{{c.id}}">{{c.card_set.name}}</a></li>
 				{% endif %}
 			{% endfor %}
+			<a href="/all_prints/{{card.id}}">See All Printings</a>
 			</ul>
 		</div>
 	</div>

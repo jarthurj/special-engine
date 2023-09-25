@@ -4,7 +4,10 @@ from .models import *
 from django.db.models.query import QuerySet
 from .query_functions import *
 from django.contrib import messages
-
+from django.contrib.auth import login, authenticate
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
 
 
 def index(request):
@@ -137,3 +140,10 @@ def all_prints(request,card_id):
 	# 	}
 	# return render(request, 'card_search/cards.html', context)
 	return redirect('cards',page=1)
+
+def register(request):
+	return render(request, 'card_search/cards.html')
+
+def register_user(request):
+	return redirect('index')
+	

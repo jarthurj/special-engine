@@ -23,4 +23,6 @@ urlpatterns = [
     path('cards/<int:page>/', views.card_pages, name="cards"),
     path('card/<int:card_id>/', views.single_card, name="single"),
     path('all_prints/<int:card_id>/', views.all_prints, name="all_prints"),
+    path('register/', views.register, name="register"),
+    # path('')
 ]

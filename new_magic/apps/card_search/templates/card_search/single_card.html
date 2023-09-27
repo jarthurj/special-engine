@@ -10,7 +10,18 @@
 <body>
 	<div id="header">
 		<h1><a href="/">MAGIC</a></h1>
-		<a href="">LOGIN</a>
+		{% if logged_in %}
+			<div>
+				<a href="/login/logout/">LOGOUT</a>
+				<a href="/decks/">DECKS</a>
+
+			</div>
+		{% else %}
+			<div>
+				<a href="/login/">LOGIN</a>
+				<a href="/login/register/">REGISTER</a>
+			</div>
+		{% endif %}
 	</div>
 	<div id="wrapper">
 		<div id="card_img">

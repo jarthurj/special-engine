@@ -10,10 +10,19 @@
 <body>
 	<div id="header">
 		<h1><a href="/">MAGIC</a></h1>
-		<div>
-			<a href="/login/">LOGIN</a>
-			<a href="/login/register/">REGISTER</a>
-		</div>
+		{% if logged_in %}
+			<div>
+				<a href="/login/logout/">LOGOUT</a>
+				<a href="/decks/">DECKS</a>
+				<h1>{{user}}</h1>
+			</div>
+		{% else %}
+			<div>
+				<a href="/login/">LOGIN</a>
+				<a href="/login/register/">REGISTER</a>
+
+			</div>
+		{% endif %}
 	</div>
 	{% for message in messages %}
 		<li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>

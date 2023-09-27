@@ -11,16 +11,17 @@ from django.contrib.auth.decorators import login_required
 
 
 def index(request):
-	request.session.flush()
+
 	context = {
-		'search_form':CardSearch()
+		'search_form':CardSearch(),
+		'logged_in':request.user.is_authenticated,
 	}
 	return render(request, "card_search/index.html",context)
 
 def search(request):
-	request.session.flush()
-	for key, value in request.POST.items():
-		print(key, value, type(value))
+
+	# for key, value in request.POST.items():
+	# 	print(key, value, type(value))
 	errors = {}
 
 	if ((request.POST.get('colors',"")!= "" or 
@@ -106,6 +107,7 @@ def card_pages(request,page):
 		next_page = last_page
 	if page == 1:
 		page_one = True
+
 	context = {
 		'cards':page_cards,
 		'page':page,
@@ -113,10 +115,13 @@ def card_pages(request,page):
 		'prev_page':page-1,
 		'next_page':page+1,
 		'last_page':last_page==page,
+		'logged_in':request.user.is_authenticated,
 	}
 	return render(request, 'card_search/cards.html', context)
 
 def single_card(request,card_id):
+
+	request.session['card_ids'] = None
 	card = Card.objects.filter(id=card_id).first()
 	printings = Card.objects.filter(name=card.name)
 	if len(printings) > 11:
@@ -124,26 +129,18 @@ def single_card(request,card_id):
 	context = {
 		'card':card,
 		'printings':printings,
+		'logged_in':request.user.is_authenticated,
 	}
 	return render(request,'card_search/single_card.html', context)
 
 def all_prints(request,card_id):
-	request.session.flush()
+
 	name_cards = name_query(Card.objects.get(id=card_id).name)
 	# matching_cards = Card.objects.all().intersection(*name_cards)
 	matching_cards_ids = []
 	for x in name_cards:
 		matching_cards_ids.append(x.id)
 	request.session['card_ids'] = matching_cards_ids
-	# context = {
-	# 		'cards':matching_cards,
-	# 	}
-	# return render(request, 'card_search/cards.html', context)
 	return redirect('cards',page=1)
 
-def register(request):
-	return render(request, 'card_search/cards.html')
-
-def register_user(request):
-	return redirect('index')
 	

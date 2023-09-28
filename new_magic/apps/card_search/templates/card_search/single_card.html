@@ -55,13 +55,15 @@
 			<ul>
 			{% for c in printings %}
 				{% if c.id == card.id %}
-					
 				{%else%}
 					<li><a href="/card/{{c.id}}">{{c.card_set.name}}</a></li>
 				{% endif %}
 			{% endfor %}
 			<a href="/all_prints/{{card.id}}">See All Printings</a>
 			</ul>
+			<form action="/add_card/{{}}" method="post">
+				<button type="submit" id="btn">ADD TO DECK</button>
+			</form>
 		</div>
 	</div>
 </body>

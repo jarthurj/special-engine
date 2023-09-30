@@ -61,9 +61,21 @@
 			{% endfor %}
 			<a href="/all_prints/{{card.id}}">See All Printings</a>
 			</ul>
-			<form action="/add_card/{{}}" method="post">
-				<button type="submit" id="btn">ADD TO DECK</button>
-			</form>
+			<div>
+				<form action="/decks/add_card/" method="post">
+					{% csrf_token %}
+					<label for="deck_id">Deck:</label>
+					<select name="deck_id">
+						{% for d in decks %}
+							<option value="{{d.id}}">{{d.name}}</option>
+						{% endfor %}
+					</select>
+					<label for="quantity">Quantity:</label>
+					<input type="number" name="quantity" min="1"/>
+					<input type="hidden" value="{{card.id}}" name="card_id" id="card_id"/>
+					<button type="submit" id="btn">ADD TO DECK</button>
+				</form>
+			</div>
 		</div>
 	</div>
 </body>

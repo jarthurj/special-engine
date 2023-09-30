@@ -8,7 +8,7 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
-
+from apps.decks.models import Deck
 
 def index(request):
 
@@ -130,6 +130,7 @@ def single_card(request,card_id):
 		'card':card,
 		'printings':printings,
 		'logged_in':request.user.is_authenticated,
+		'decks':Deck.objects.filter(user=User.objects.get(id=request.user.id)),
 	}
 	return render(request,'card_search/single_card.html', context)
 

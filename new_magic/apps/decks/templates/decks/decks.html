@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,12 +16,27 @@
 		<a href="/login/logout/">LOGOUT</a>
 	</div>
 	<div id="wrapper">
-		<form action="new_deck" method="post">
-
-			{{form}}
-		</form>
-		<table>
-		</table>
+		<div>
+			<form action="/decks/add_deck/" method="post">
+				{% csrf_token %}
+				{{form}}
+				<button type="submit" id="btn">CREATE DECK</button>
+			</form>
+		</div>
+		<div>
+			<table>
+				<tr>
+					<th>Deck Name</th>
+					<th>Deck Desc</th>
+				</tr>
+				{% for d in decks%}
+					<tr>
+						<td><a href="decks/deck_view/{{d.id}}">{{d.name}}</a></td>
+						<td>{{d.desc}}</td>
+					</tr>
+				{% endfor %}
+			</table>
+		</div>
 	</div>
 	<div id="naver">
 	</div>

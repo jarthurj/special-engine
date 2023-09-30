@@ -3,4 +3,6 @@ from django.urls import path, include
 from . import views
 urlpatterns = [
     path('', views.decks, name='decks'),
+    path('add_deck/', views.add_deck, name="add_deck"),
+    path('add_card/', views.add_card, name="add_card")
 ]

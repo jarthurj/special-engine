@@ -4,8 +4,8 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link href="../../static/reset.css" rel="stylesheet"/>
-	<link href="../../static/cards.css" rel="stylesheet"/>
+	<link href="../../../static/reset.css" rel="stylesheet"/>
+	<link href="../../../static/deck_detail.css" rel="stylesheet"/>
 
 	<title>
 	</title>
@@ -17,16 +17,19 @@
 	</div>
 	<div id="wrapper">
 		<div>
+
 			<table>
 				<tr>
 					<th>Card Name</th>
 					<th>Quantity</th>
+					<th>Edit</th>
 				</tr>
 				{% for c in cards%}
 
 					<tr>
 						<td><a href="/card/{{c.id}}">{{c.name}}</a></td>
 						<td>{{c.quantity}}</td>
+						<td><form action="/decks/remove_card/" method="post">{% csrf_token %}<input type="number" name="quantity" min="1" max="{{c.quantity}}"/><input type="hidden" value="{{deck_id}}" name="deck_id"/><input type="hidden" value="{{c.id}}" name="card_id"/><button type="submit" id="btn">REMOVE</button></form></td>
 					</tr>
 
 				{% endfor %}

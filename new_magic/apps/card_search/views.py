@@ -89,6 +89,7 @@ def search(request):
 		return redirect('cards',page=1)
 
 def card_pages(request,page):
+	print(request.session['card_ids'])
 	last_page = len(request.session['card_ids'])//60
 	if page == 1:
 		cards = request.session['card_ids'][:60]

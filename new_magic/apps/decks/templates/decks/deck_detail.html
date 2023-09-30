@@ -17,22 +17,15 @@
 	</div>
 	<div id="wrapper">
 		<div>
-			<form action="/decks/add_deck/" method="post">
-				{% csrf_token %}
-				{{form}}
-				<button type="submit" id="btn">CREATE DECK</button>
-			</form>
-		</div>
-		<div>
 			<table>
 				<tr>
-					<th>Deck Name</th>
-					<th>Deck Desc</th>
+					<th>Card Name</th>
+					<th>Quantity</th>
 				</tr>
-				{% for d in decks%}
+				{% for c in cards%}
 					<tr>
-						<td><a href="/decks/deck_detail/{{d.id}}">{{d.name}}</a></td>
-						<td>{{d.desc}}</td>
+						<td><a href="/card/{{c.id}}">{{c.name}}</a></td>
+						<td>{{c.desc}}</td>
 					</tr>
 				{% endfor %}
 			</table>

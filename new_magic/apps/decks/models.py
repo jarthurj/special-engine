@@ -11,3 +11,4 @@ class Deck(models.Model):
 class CardDeck(models.Model):
 	card = models.ForeignKey(Card, on_delete=models.CASCADE)
 	deck = models.ForeignKey(Deck, on_delete=models.CASCADE)
+

@@ -23,10 +23,12 @@
 					<th>Quantity</th>
 				</tr>
 				{% for c in cards%}
+
 					<tr>
 						<td><a href="/card/{{c.id}}">{{c.name}}</a></td>
-						<td>{{c.desc}}</td>
+						<td>{{c.quantity}}</td>
 					</tr>
+
 				{% endfor %}
 			</table>
 		</div>

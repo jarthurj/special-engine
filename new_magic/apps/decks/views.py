@@ -3,6 +3,8 @@ from .forms import DeckForm
 from .models import Deck, CardDeck
 from django.contrib.auth.models import User
 from apps.card_search.models import Card
+from django.core import serializers
+import json
 def decks(request):
 	user_decks = Deck.objects.none()
 	# print(request.user.id)
@@ -33,7 +35,17 @@ def add_card(request):
 
 def deck_detail(request, deck_id):
 	histo = {}
+	histo2 = {}
+	lister = []
+	for card in Deck.objects.get(id=deck_id).card.all():
+		histo[card.name] = histo.get(card.name, 0) + 1
+	for key, value in histo.items():
+		lister.append({'name':key,'quantity':value})
+	for x in range(0,len(lister)):
+		histo2[str(x)] = lister[x]
+	print(histo2)
+	# data = serializers.serialize('json', lister)
 	context = {
-		'cards':Deck.objects.get(id=deck_id).card.all()
+		'cards':lister,
 	}
 	return render(request, "decks/deck_detail.html", context)

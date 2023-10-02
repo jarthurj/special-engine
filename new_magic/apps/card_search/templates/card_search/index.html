@@ -30,7 +30,6 @@
 	<div id="wrapper">
 		<form action="/card_search/" method="post">
 			{% csrf_token %}
-			<!-- {{search_form.as_div}} -->
 			<div class="labeler-div">
 				<p class="labeler">{{search_form.card_name.label}}</p>
 				{{search_form.card_name}}

@@ -10,7 +10,6 @@ def index(request):
 
 def logout_user(request):
 	logout(request)
-	# request.session.flush()
 	return redirect('/')
 
 def register(request):
@@ -20,8 +19,6 @@ def register(request):
 	return render(request, 'users/register.html',context)
 
 def create_user(request):
-	# for key, value in request.POST.items():
-	# 	print(key, value)
 	errors = {}
 	if request.POST['password2'] != request.POST['password1']:
 		errors['password_mismatch'] = "Passwords do not match!"
@@ -37,8 +34,6 @@ def create_user(request):
 def login_user(request):
 
 	if request.method == 'POST':
-		# for key, value in request.POST.items():
-		# 	print(key, value)
 		username = request.POST['username']
 		password = request.POST['password']
 		user = authenticate(request, username=username, password=password)

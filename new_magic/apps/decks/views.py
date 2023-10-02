@@ -5,9 +5,6 @@ from django.contrib.auth.models import User
 from apps.card_search.models import Card
 def decks(request):
 	user_decks = Deck.objects.none()
-	# print(request.user.id)
-	# print(User.objects.get(id=request.user.id))
-	print()
 	if len(Deck.objects.filter(user=User.objects.get(id=request.user.id))) > 0:
 		user_decks = Deck.objects.filter(user=User.objects.get(id=request.user.id))
 	context = {
@@ -22,8 +19,6 @@ def add_deck(request):
 	return redirect('decks')
 
 def add_card(request):
-	for key, value in request.POST.items():
-		print(key, value, type(value))
 	d = Deck.objects.get(id=request.POST['deck_id'])
 	c = Card.objects.get(id=request.POST['card_id'])
 	for x in range(0, int(request.POST['quantity'])):
@@ -43,8 +38,6 @@ def deck_detail(request, deck_id):
 		lister.append({'name':key,'quantity':value,'id':histo_id[key]})
 	for x in range(0,len(lister)):
 		histo2[str(x)] = lister[x]
-	print(histo2)
-	# data = serializers.serialize('json', lister)
 	context = {
 		'cards':lister,
 		'deck_id':deck_id,

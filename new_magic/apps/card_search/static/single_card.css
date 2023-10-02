@@ -1,11 +1,7 @@
 div{
-	border:1px solid red;
-/*	margin-bottom:10px;*/
+/*	border:1px solid red;*/
 }
 
-#card_info{
-	
-}
 
 #header{
 	display:flex;
@@ -14,7 +10,6 @@ div{
 	margin-bottom:50px;
 	align-items:center;
 	justify-content: space-between;
-/*	background-color: #114B5F;*/
 	padding:0px 20px;
 }
 html{
@@ -37,11 +32,9 @@ h1{
 #wrapper{
 	margin:0px auto;
 	width:90%;
-/*	height:600px;*/
 	display:flex;
 	justify-content: space-around;
 	color:#e4fde1;
-/*	flex-wrap: wrap;*/
 }
 
 #legal{
@@ -57,13 +50,9 @@ h1{
 	justify-content: space-between;
 	align-content:space-between;
 	width:40%;
-/*	height:30%;*/
-/*	margin-bottom: 250px;*/
-/*	padding: 100px 0;*/
 }
 #card_img{
 	width:35%;
-/*	width:100px;*/
 }
 #legals{
 	display:flex;
@@ -98,39 +87,21 @@ li{
 
 @media only screen and (max-width:767px){
 	#wrapper{
-
 		margin:0px auto;
 		width:90%;
-/*		height:600px;*/
 		display:flex;
-/*		justify-content: space-around;*/
 		flex-flow:column;
-		flex-direction: ;
 		color:#e4fde1;
-/*		flex-wrap: wrap;*/
 	}
 	#legals{
 		height:100%;
 		width:100%;
 	}
-	#card_info{
-		width:100%;
-	}
-	.game{
-		width:100%;
-	}
-	#prints{
-		width:100%;
-	}
-	#card_img{
+	#card_info, .game, #prints, #card_img{
 		width:100%;
 	}
 }
 
-@media only screen and (min-width:768px){
-
-
-}
 
 @media only screen and (min-width:1024px){
 	#wrapper{
@@ -140,7 +111,7 @@ li{
 		display:flex;
 		justify-content: space-around;
 		color:#e4fde1;
-	/*	flex-wrap: wrap;*/
+
 }
 
 }

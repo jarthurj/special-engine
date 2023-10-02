@@ -10,7 +10,6 @@ div{
 	margin-bottom:50px;
 	align-items:center;
 	justify-content: space-between;
-/*	background-color: #403d58;*/
 	padding:0px 20px;
 }
 html{
@@ -89,9 +88,6 @@ button:hover {
 		width:35%;
 		margin:0px auto;
 		color:#e4fde1;
-/*		display:flex;
-		flex-flow: column;
-		flex-wrap: wrap;*/
 	}
 
 

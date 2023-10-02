@@ -13,11 +13,11 @@
 <body>
 	<div id="header">
 		<h1><a href="/">MAGIC</a></h1>
-		<a href="/login/logout/">LOGOUT</a>
+		<a id="logout" href="/login/logout/">LOGOUT</a>
 	</div>
 	<div id="wrapper">
 		<div>
-			<form action="/decks/add_deck/" method="post">
+			<form action="/decks/add_deck/" method="post" id=former>
 				{% csrf_token %}
 				{{form}}
 				<button type="submit" id="btn">CREATE DECK</button>

@@ -20,8 +20,6 @@ def index(request):
 
 def search(request):
 
-	# for key, value in request.POST.items():
-	# 	print(key, value, type(value))
 	errors = {}
 
 	if ((request.POST.get('colors',"")!= "" or 
@@ -82,14 +80,9 @@ def search(request):
 		for x in matching_cards:
 			matching_cards_ids.append(x.id)
 		request.session['card_ids'] = matching_cards_ids
-		# context = {
-		# 		'cards':matching_cards,
-		# 	}
-		# return render(request, 'card_search/cards.html', context)
 		return redirect('cards',page=1)
 
 def card_pages(request,page):
-	print(request.session['card_ids'])
 	last_page = len(request.session['card_ids'])//60
 	if page == 1:
 		cards = request.session['card_ids'][:60]
@@ -138,7 +131,6 @@ def single_card(request,card_id):
 def all_prints(request,card_id):
 
 	name_cards = name_query(Card.objects.get(id=card_id).name)
-	# matching_cards = Card.objects.all().intersection(*name_cards)
 	matching_cards_ids = []
 	for x in name_cards:
 		matching_cards_ids.append(x.id)

@@ -1,6 +1,6 @@
 div{
-/*	border:1px solid red;*/
-/*	margin-bottom:10px;*/
+/*	border:1px solid red;
+	margin-bottom:10px;*/
 }
 
 #header{
@@ -10,7 +10,6 @@ div{
 	margin-bottom:50px;
 	align-items:center;
 	justify-content: space-between;
-/*	background-color: #403d58;*/
 	padding:0px 20px;
 }
 html{
@@ -29,6 +28,16 @@ a{
 	color:#F45B69;
 	text-decoration: none;
 	margin:0px 10px;
+}
+
+table{
+	width:60%;
+	margin:0px auto;
+	text-align:center;
+}
+
+table, th, td {
+  border: 1px solid;
 }
 
 .labeler{

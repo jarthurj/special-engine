@@ -70,33 +70,3 @@ class ColorIdentity(models.Model):
 class Keyword(models.Model):
 	keyword = models.CharField(max_length=20)
 	cards = models.ManyToManyField(Card, related_name="keywords")
-
-
-
-# id DONE
-# name DONE
-# layout DONE
-# image_uris DONE
-	# small
-	# normal
-	# large
-	# png
-	# art_crop
-	# border_crop
-# mana_cost DONE
-# cmc DONE
-# type_line
-# oracle_text DONE
-# power DONE
-# toughness DONE
-# colors DONE
-# color_identity DONE
-# keywords DONE
-# legalities DONE
-# reserved DONE
-# set DONE
-# set_name DONE
-# collector_number DONE
-# digital DONE
-# rarity DONE
-# flavor_text DONE

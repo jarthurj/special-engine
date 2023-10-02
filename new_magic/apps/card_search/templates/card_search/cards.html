@@ -5,17 +5,6 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link href="../../static/reset.css" rel="stylesheet"/>
 	<link href="../../static/cards.css" rel="stylesheet"/>
-<!-- 	<script src=
-"https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js">  
-	</script>
-
-	<script src=
-"https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.js">  
-	</script>
-
-	<link href=
-"http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/ui-lightness/jquery-ui.css"
-rel="stylesheet" type="text/css" />   -->
 
 	<title>
 	</title>
@@ -40,18 +29,6 @@ rel="stylesheet" type="text/css" />   -->
 		{% for c in cards %}
 			<a href="/card/{{c.id}}"><img src="{{c.image_normal}}"/></a>
 		{% endfor %}
-	<!-- 	<script>
-			$( function() {
-				var availableTags = [
-					{% for language in languages %}
-						"{{language.name}}",
-					{% endfor %}
-				];
-				$( "#tags" ).autocomplete({
-					source: availableTags
-				});
-			} );
-		</script> -->
 	</div>
 	<div id="naver">
 		{% if page_one %}

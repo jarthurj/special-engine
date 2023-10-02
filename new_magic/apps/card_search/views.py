@@ -23,21 +23,21 @@ def search(request):
 	errors = {}
 
 	if ((request.POST.get('colors',"")!= "" or 
-		request.POST.getlist('colors') != []) and 
-							request.POST['exactly_or_not']=='default'):
+			request.POST.getlist('colors') != []) and 
+			request.POST['exactly_or_not']=='default'):
 		errors['color_error'] = "Please select how to search colors!!!!!!"
 
 	if ((request.POST.get('mpt',"none")=="none" and 
-		request.POST.get('mpt_condition', "none")!="none") or
-		((request.POST.get('mpt',"none")!="none" and 
-		request.POST.get('mpt_condition', "none")=="none"))):
+			request.POST.get('mpt_condition', "none")!="none") or
+			((request.POST.get('mpt',"none")!="none" and 
+			request.POST.get('mpt_condition', "none")=="none"))):
 		errors['format_error'] = "Please select all conditions for format query"
 
 	if ((request.POST.get('lrb',"none")=="none" and 
-		request.POST.get('game_types', "none")!="none") or
-		((request.POST.get('lrb',"none")!="none" and 
-		request.POST.get('game_types', "none")=="none"))):
-		errors['mpt_error'] = "Please select all conditions for stats query"
+			request.POST.get('game_types', "none")!="none") or
+			((request.POST.get('lrb',"none")!="none" and 
+			request.POST.get('game_types', "none")=="none"))):
+			errors['mpt_error'] = "Please select all conditions for stats query"
 	if errors:
 		for key, value in errors.items():
 				messages.error(request, value)

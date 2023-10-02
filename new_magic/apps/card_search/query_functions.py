@@ -134,7 +134,7 @@ def mpt_query(mpt,mpt_cond,mpt_param):
 def lrb_query(lrb, game_type):
 	if lrb != 'none':
 		legals =  Legality.objects.get(legality=lrb,
-									game_type=GameType.objects.get(game_type=game_type))
+					game_type=GameType.objects.get(game_type=game_type))
 		return legals.cards.all()
 	else:
 		return Card.objects.all()

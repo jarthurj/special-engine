@@ -29,7 +29,7 @@
 					<tr>
 						<td><a href="/card/{{c.id}}">{{c.name}}</a></td>
 						<td>{{c.quantity}}</td>
-						<td><form action="/decks/remove_card/" method="post">{% csrf_token %}<input type="number" name="quantity" min="1" max="{{c.quantity}}"/><input type="hidden" value="{{deck_id}}" name="deck_id"/><input type="hidden" value="{{c.id}}" name="card_id"/><button type="submit" id="btn">REMOVE</button></form></td>
+						<td><form action="/decks/card_quantity/" method="post">{% csrf_token %}<input type="number" name="quantity" min="1"/><input type="hidden" value="{{deck_id}}" name="deck_id"/><input type="hidden" value="{{c.id}}" name="card_id"/><button type="submit" id="btn">UPDATE QUANTITY</button></form></td>
 					</tr>
 
 				{% endfor %}

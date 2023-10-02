@@ -143,6 +143,6 @@ def all_prints(request,card_id):
 	for x in name_cards:
 		matching_cards_ids.append(x.id)
 	request.session['card_ids'] = matching_cards_ids
-	return redirect('cards',page=1)
+	return redirect('cards', page=1)
 
 	

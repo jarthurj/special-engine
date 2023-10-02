@@ -51,10 +51,18 @@ def deck_detail(request, deck_id):
 	}
 	return render(request, "decks/deck_detail.html", context)
 
-def remove_card(request):
-	for x in range(0, int(request.POST['quantity'])):
-		cd = CardDeck.objects.filter(card=request.POST['card_id'], 
-			deck=request.POST['deck_id']).first()
-		cd.delete()
+def card_quantity(request):
+	quantity = int(request.POST['quantity'])
+	card = int(request.POST['card_id'])
+	deck = int(request.POST['deck_id'])
+	difference = quantity - len(CardDeck.objects.filter(card=Card.objects.get(id=card),deck=Deck.objects.get(id=deck)))
+	if difference > 0:
+		for x in range(0, difference):
+			CardDeck.objects.create(card=Card.objects.get(id=card), deck=Deck.objects.get(id=deck))
+	else:
+		for x in range(0, abs(difference)):
+			cd = CardDeck.objects.filter(card=request.POST['card_id'], 
+				deck=request.POST['deck_id']).first()
+			cd.delete()
 	url_redirect="/decks/deck_detail/"+request.POST['deck_id']
 	return redirect(url_redirect)

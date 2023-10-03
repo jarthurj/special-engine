@@ -3,36 +3,47 @@ from django.db import models
 
 class Cmc(models.Model):
 	cmc = models.DecimalField(decimal_places=1, max_digits=9, null=True)
+	def __str__(self):
+		return str(self.cmc)
 
 class Power(models.Model):
 	power = models.IntegerField(blank=True,null=True)
-
+	def __str__(self):
+		return str(self.power)
 class Toughness(models.Model):
 	toughness = models.IntegerField(blank=True,null=True)
-
+	def __str__(self):
+		return str(self.toughness)
 class Rarity(models.Model):
 	rarity = models.CharField(max_length=10)
-
+	def __str__(self):
+		return str(self.rarity)
 class Layout(models.Model):
 	layout = models.CharField(max_length=20)
-
+	def __str__(self):
+		return str(self.layout)
 class Digital(models.Model):
 	digital = models.BooleanField()
-
+	def __str__(self):
+		return str(self.digital)
 class Reserved(models.Model):
 	reserved = models.BooleanField()
-
+	def __str__(self):
+		return str(self.reserved)
 class CardSet(models.Model):
 	name = models.CharField(max_length=50)
 	set_code = models.CharField(max_length=20)
-
+	def __str__(self):
+		return "Name of set:" + str(name) + "Set Code/Acronym:" + str(set_code)
 class GameType(models.Model):
 	game_type = models.CharField(max_length=20)
-
+	def __str__(self):
+		return str("Game/Format type:"+game_type)
 class Legality(models.Model):
 	legality = models.CharField(max_length=20)
 	game_type = models.ForeignKey(GameType, related_name="legalities",on_delete=models.CASCADE)
-
+	def __str__(self):
+		
 class ManaCost(models.Model):
 	mana_cost = models.CharField(max_length=20)
 

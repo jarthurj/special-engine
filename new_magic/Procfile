@@ -1,0 +1,1 @@
+web gunicorn new_magic.wsgi:application --log-file -

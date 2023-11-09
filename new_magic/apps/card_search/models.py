@@ -42,7 +42,6 @@ class GameType(models.Model):
 class Legality(models.Model):
 	legality = models.CharField(max_length=20)
 	game_type = models.ForeignKey(GameType, related_name="legalities",on_delete=models.CASCADE)
-	def __str__(self):
 		
 class ManaCost(models.Model):
 	mana_cost = models.CharField(max_length=20)

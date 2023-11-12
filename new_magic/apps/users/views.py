@@ -26,8 +26,8 @@ def create_user(request):
 				messages.error(request, value)
 		return redirect('register')
 	else:
-		User.objects.create_user(request.POST['email'], 
-								request.POST['username'],
+		User.objects.create_user(request.POST['username'],
+								request.POST['email'],
 								request.POST['password1'],)
 		return redirect('/')
 

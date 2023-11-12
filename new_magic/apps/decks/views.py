@@ -59,3 +59,15 @@ def card_quantity(request):
 			cd.delete()
 	url_redirect="/decks/deck_detail/"+request.POST['deck_id']
 	return redirect(url_redirect)
+
+def delete_card(request):
+	card_id = int(request.POST['card_id'])
+	deck_id = int(request.POST['deck_id'])
+	quantity = int(request.POST['quantity'])
+	print(card_id, deck_id, quantity)
+	for x in range(0,quantity):
+		card = CardDeck.objects.filter(card=Card.objects.get(id=card_id), deck=Deck.objects.get(id=deck_id)).first()
+		print(card)
+		card.delete()
+	url_redirect="/decks/deck_detail/"+request.POST['deck_id']
+	return redirect(url_redirect)

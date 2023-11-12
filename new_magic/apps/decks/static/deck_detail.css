@@ -31,7 +31,7 @@ a{
 }
 
 table{
-	width:60%;
+	width:80%;
 	margin:0px auto;
 	text-align:center;
 }
@@ -66,7 +66,7 @@ button {
 	font-family: Arial;
 	color: #e4fde1;
 	font-size: 16px;
-	padding: 8px 16px 8px 16px;
+	padding: 5px 12px 5px 12px;
 	text-decoration: none;
 }
 
